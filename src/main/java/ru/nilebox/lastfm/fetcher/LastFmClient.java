@@ -1,5 +1,6 @@
 package ru.nilebox.lastfm.fetcher;
 
+import ru.nilebox.lastfm.fetcher.config.LastFmConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,6 +20,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ru.nilebox.lastfm.fetcher.data.ArtistInfo;
+import ru.nilebox.lastfm.fetcher.exceptions.LastFmInvalidConfigException;
 
 /**
  *
@@ -27,10 +29,10 @@ import ru.nilebox.lastfm.fetcher.data.ArtistInfo;
 public class LastFmClient {
 	private static final Logger logger = LoggerFactory.getLogger(LastFmClient.class);
 	
-	private LastfmConfig config;
+	private LastFmConfig config = new LastFmConfig();
 	private String key;	
 	
-	public void setConfig(LastfmConfig config) {
+	public void setConfig(LastFmConfig config) {
 		this.config = config;
 	}
 
@@ -73,7 +75,10 @@ public class LastFmClient {
 		return doc;
 	}
 
-	public ArtistInfo findArtist(String query) throws URIException, IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+	public ArtistInfo findArtist(String query) throws URIException, IOException, ParserConfigurationException, SAXException, XPathExpressionException, LastFmInvalidConfigException {
+		if (key == null)
+			throw new LastFmInvalidConfigException("last.fm API key is not specified");
+		
 		String url = getSearchUrl(query);
 		Document doc = fetch(url);
 		

@@ -1,4 +1,4 @@
-package ru.nilebox.lastfm.fetcher;
+package ru.nilebox.lastfm.fetcher.config;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,18 +12,18 @@ import javax.xml.xpath.XPathFactory;
  * @author
  * nile
  */
-public class LastfmConfig {
-	private String searchUrl;
-	private String descriptionUrl;
-	private String keyParameterName;
-	private String queryParameterName;
-	private String idParameterName;
-	private String idXPath;
-	private String descriptionXPath;
-	private String nameXPath;
-	private String smallImageXPath;
-	private String mediumImageXPath;
-	private String largeImageXPath;
+public class LastFmConfig {
+	private String searchUrl = ConfigDefaults.DEFAULT_SEARCH_URL;
+	private String descriptionUrl = ConfigDefaults.DEFAULT_DESCRIPTION_URL;
+	private String keyParameterName = ConfigDefaults.DEFAULT_PARAM_KEY_NAME;
+	private String queryParameterName = ConfigDefaults.DEFAULT_PARAM_QUERY_NAME;
+	private String idParameterName = ConfigDefaults.DEFAULT_PARAM_ID_NAME;
+	private String idXPath = ConfigDefaults.DEFAULT_XPATH_ID;
+	private String descriptionXPath = ConfigDefaults.DEFAULT_XPATH_DESCRIPTION;
+	private String nameXPath = ConfigDefaults.DEFAULT_XPATH_NAME;
+	private String smallImageXPath = ConfigDefaults.DEFAULT_XPATH_IMG_SMALL;
+	private String mediumImageXPath = ConfigDefaults.DEFAULT_XPATH_IMG_MEDIUM;
+	private String largeImageXPath = ConfigDefaults.DEFAULT_XPATH_IMG_LARGE;
 	private final XPath xpath = XPathFactory.newInstance().newXPath();
 	private final Map<String, XPathExpression> compiledExpressions = new ConcurrentHashMap<String, XPathExpression>();
 
